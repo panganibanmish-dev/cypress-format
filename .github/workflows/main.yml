@@ -1,0 +1,25 @@
+name: Cypress Format
+
+on: [push]
+
+jobs:
+  cypress-run: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.7.0
+      - name: Cypress.io
+        uses: cypress-io/github-action@v5.6.1
+        with: 
+          command: npm run cypress:open
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+         SLACK_USERNAME: panganibanmish.work
+         SLACK_TITLE: test team
+         SLACK_MESSAGE: "NEW UPDATED REPO :rocket: "
+         SLACK_COLOR: ${{ job.status }}
+         
+          
+      
